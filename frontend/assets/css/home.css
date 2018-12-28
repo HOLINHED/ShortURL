@@ -63,3 +63,7 @@ body {
    text-decoration: underline;
    cursor: pointer;
 }
+
+#makeShort:focus {
+    outline: none;
+}

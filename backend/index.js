@@ -13,15 +13,18 @@ app.use(cors());
 app.get('/:id', (req, res) => {
     res.status(200);
     res.json({
-        message: 'hello world'
-    })
+        id: req.params.id,
+        message: 200
+    });
 });
 
 app.post('/new', (req, res) => {
     res.status(200);
+    const id = 0;
     res.json({
-        message: 'hello world'
-    })
+        longURL: req.body.link,
+        id
+    });
 });
 
 app.listen(PORT, () => {
