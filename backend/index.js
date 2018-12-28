@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const check = require('./modules/check');
 
-const PORT = 5000;
+const PORT = 3000;
 const app = express();
 
 app.use(express.json());
