@@ -2,46 +2,56 @@ body {
    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-#title {
+.container {
+    width: 70%;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+ }
+
+.title {
    font-size: 50px;
    color: lightskyblue;
 }
 
-#desc {
+.desc {
    color: lightcoral;
 }
 
-#container {
-   width: 70%;
-   max-width: 700px;
-   margin: 0 auto;
-   text-align: center;
+.bar {
+    width: 100%;
+    height: 4vh;
+    min-height: 40px;
+    max-height: 55px;
+    display: flex;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.submit {
+    height: 100%;
+    min-height: 23px;
+    background: lightskyblue;
+    color: white;
+    font-size: 25px;
+    border: none;
+    box-sizing: border-box;
+}
+
+.submit:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+ 
+.submit:focus {
+     outline: none;
 }
 
 #longUrl {
    display: flex;
    flex-direction: column;
    align-items: center;
-}
-
-#bar {
-   width: 100%;
-   height: 4vh;
-   min-height: 40px;
-   max-height: 55px;
-   display: flex;
-   width: 80%;
-   margin-top: 20px;
-}
-
-#makeShort {
-   height: 100%;
-   min-height: 23px;
-   background: lightskyblue;
-   color: white;
-   font-size: 25px;
-   border: none;
-   box-sizing: border-box;
+   margin-bottom: 20px;
 }
 
 #url {
@@ -57,13 +67,4 @@ body {
 
 #url:focus {
    outline: none;
-}
-
-#makeShort:hover {
-   text-decoration: underline;
-   cursor: pointer;
-}
-
-#makeShort:focus {
-    outline: none;
 }

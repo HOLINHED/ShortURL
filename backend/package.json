@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "express-rate-limit": "^3.3.2",
+    "valid-url": "^1.0.9"
   }
 }
