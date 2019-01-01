@@ -68,3 +68,7 @@ body {
 #url:focus {
    outline: none;
 }
+
+@media (max-width: 650px) {
+    
+}

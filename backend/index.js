@@ -2,22 +2,42 @@
 
 const express = require('express');
 const cors = require('cors');
+const monk = require('monk');
 const rateLimit = require('express-rate-limit');
 const validUrl = require('valid-url');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
+const db = monk('localhost/ShortURL');
+const urls = db.get('urls');
 
 app.enable('trust-proxy');
 app.use(express.json());
 app.use(cors());
 
-app.get('/:id', (req, res) => {
-    res.status(200);
-    res.json({
-        id: req.params.id,
-        message: 200
-    });
+app.get('/u/:id', (req, res, next) => {
+
+    const disc = parseInt(req.params.id) || 0;
+
+    urls
+    .find({discriminator: disc})
+    .then(data => {
+        if (data.length > 0){
+            
+            res.writeHead(302, {
+                'Location': data[0].link
+            });
+            
+            res.end();
+
+        } else {
+            res.status(200).json({
+                message: 'invalid URL'
+            });
+        }
+
+    })
+    .catch(next);
 });
 
 app.use(rateLimit({
@@ -25,26 +45,37 @@ app.use(rateLimit({
     max: 1
 }));
 
-app.post('/new', (req, res) => {
+app.post('/new', (req, res, next) => {
 
     const LONG_URL = req.body.link.toString().trim();
 
     if (validUrl.isWebUri(LONG_URL)){
-        res.json({
-            longURL: LONG_URL,
-            id: 0
+        
+        urls.find({}, { sort: { $natural : -1}, limit : 1 }, (error, data) => {
+            if (error) return next(error);
+
+            const entry = {
+                discriminator: data[0].discriminator + 1,
+                link: LONG_URL
+            };
+
+            urls
+            .insert(entry)
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(next);
         });
+
     } else {
-        res.status(422);
-        res.json({
+        res.status(422).json({
             status: 'error'
         });
     }
 });
 
 app.use((error, req, res, next) => {
-    res.status(500);
-    res.json({
+    res.status(500).json({
         message: error.message
     });
 });
