@@ -50,23 +50,33 @@ app.post('/new', (req, res, next) => {
     const LONG_URL = req.body.link.toString().trim();
 
     if (validUrl.isWebUri(LONG_URL)){
+
+        urls
+        .find({link: LONG_URL})
+        .then(data => {
+            if (data.length > 0) {
+                res.status(200).json(data[0]);
+            } else {
+
+                urls.find({}, { sort: { $natural : -1}, limit : 1 }, (error, data) => {
+                    if (error) return next(error);
+
+                    const disc = data[0] + 1
         
-        urls.find({}, { sort: { $natural : -1}, limit : 1 }, (error, data) => {
-            if (error) return next(error);
-
-            const entry = {
-                discriminator: data[0].discriminator + 1,
-                link: LONG_URL
-            };
-
-            urls
-            .insert(entry)
-            .then(data => {
-                res.status(200).json(data);
-            })
-            .catch(next);
+                    const entry = {
+                        discriminator: disc || 0,
+                        link: LONG_URL
+                    };
+        
+                    urls
+                    .insert(entry)
+                    .then(data => {
+                        res.status(200).json(data);
+                    })
+                    .catch(next);
+                });
+            }
         });
-
     } else {
         res.status(422).json({
             status: 'error'

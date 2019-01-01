@@ -70,5 +70,7 @@ body {
 }
 
 @media (max-width: 650px) {
-    
+    .container {
+        width: 95%;
+    }
 }
