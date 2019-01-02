@@ -8,7 +8,7 @@ const validUrl = require('valid-url');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-const db = monk('localhost/ShortURL');
+const db = monk(process.env.MONGO_URI || 'localhost/ShortURL');
 const urls = db.get('urls');
 
 app.enable('trust-proxy');
@@ -61,7 +61,7 @@ app.post('/new', (req, res, next) => {
                 urls.find({}, { sort: { $natural : -1}, limit : 1 }, (error, data) => {
                     if (error) return next(error);
 
-                    const disc = data[0] + 1
+                    const disc = data[0].discriminator + 1;
         
                     const entry = {
                         discriminator: disc || 0,

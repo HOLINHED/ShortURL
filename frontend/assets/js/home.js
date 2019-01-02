@@ -1,4 +1,4 @@
-const API = 'http://localhost:3000';
+const API = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://holinhed.now.sh';
 const form = document.querySelector('#longUrl');
 
 function changeButton() {
@@ -40,4 +40,5 @@ form.addEventListener("submit", event => {
       });
 });
 
+changeButton();
 window.addEventListener('resize', changeButton);
