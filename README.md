@@ -15,8 +15,8 @@ Live version at : https://holinhed-url.now.sh
  /u/:id (get)
     id: (int) The unique identifier for each link.
     
-    responses:
-      200:
-        message: (string) Invalid ID.
-      302: 
-        Redirects user to correct website.
+   responses:
+     200:
+       message: (string) Invalid ID.
+     302: 
+       Redirects user to correct website.
