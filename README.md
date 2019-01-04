@@ -3,7 +3,8 @@
 Live version at : https://holinhed-url.now.sh
 
 /new (post)
-  link: (string) The unshortended URL.
+
+    link: (string) The unshortended URL.
   
     responses:
       200:
@@ -13,6 +14,7 @@ Live version at : https://holinhed-url.now.sh
         status: (string) Invalid URI
       
  /u/:id (get)
+    
     id: (int) The unique identifier for each link.
     
     responses:
